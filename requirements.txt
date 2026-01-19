@@ -2,13 +2,12 @@
 fastapi
 uvicorn[standard]
 python-multipart
-pydantic
+pydantic[email]
 starlette
 
 # Authentication & Security (NEW)
 python-jose[cryptography]
 passlib[bcrypt]
-email-validator
 
 # Data Science & ML
 pandas
