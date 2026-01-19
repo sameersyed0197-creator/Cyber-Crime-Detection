@@ -812,8 +812,8 @@
     </div>
 <script>
 /* ================= API CONFIG ================= */
-//const API_BASE_URL = "http://127.0.0.1:8000"; // change when deployed
-const API_BASE_URL = "https://cyber-crime-detection.onrender.com"
+const API_BASE_URL = "https://cyber-crime-detection.onrender.com"; // Updated to Render deployment
+
 function setToken(token) {
     localStorage.setItem("access_token", token);
 }
@@ -905,8 +905,11 @@ document.getElementById('loginFormContent').addEventListener('submit', async (e)
         // Close modal
         closeAuthModal();
         
-        // Redirect to dashboard
-        window.location.href = "dashboard.html";
+        // Stay on same page - no redirect
+        alert("Login successful! You can now use the platform.");
+        
+        // Update UI to show logged in state
+        updateUIForLoggedInUser();
 
     } catch (err) {
         alert("Server error: " + err.message);
@@ -942,6 +945,54 @@ document.getElementById('signupFormContent').addEventListener('submit', async (e
 
     try {
         const res = await fetch(`${API_BASE_URL}/signup`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, username, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.detail || "Signup failed");
+            return;
+        }
+
+        // Save token
+        setToken(data.access_token);
+        
+        // Close modal
+        closeAuthModal();
+        
+        // Stay on same page - no redirect
+        alert("Account created successfully! You can now use the platform.");
+        
+        // Update UI to show logged in state
+        updateUIForLoggedInUser();
+
+    } catch (err) {
+        alert("Server error: " + err.message);
+        console.error(err);
+    }
+});
+
+// Function to update UI for logged in user
+function updateUIForLoggedInUser() {
+    // Hide login buttons, show user info, etc.
+    const loginBtns = document.querySelectorAll('[onclick="openAuthModal()"]');
+    loginBtns.forEach(btn => {
+        btn.style.display = 'none';
+    });
+    
+    // Show success message
+    const statusDiv = document.createElement('div');
+    statusDiv.className = 'fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg z-50';
+    statusDiv.textContent = '✅ Logged in successfully!';
+    document.body.appendChild(statusDiv);
+    
+    setTimeout(() => {
+        statusDiv.remove();
+    }, 3000);
+}
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, email, password })
@@ -1022,5 +1073,4 @@ document.querySelectorAll('.glass-card').forEach((el, index) => {
 
        
 </body>
-
 </html>
