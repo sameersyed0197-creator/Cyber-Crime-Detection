@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard AI | Advanced Threat Detection Platform</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0f;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .hero-bg {
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                linear-gradient(to bottom, #0a0a0f 0%, #0f172a 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 50%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(96, 165, 250, 0.3);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(96, 165, 250, 0.1);
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-ring {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(96, 165, 250, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(96, 165, 250, 0); }
+        }
+        
+        .stats-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #60a5fa 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #60a5fa;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 2px solid rgba(96, 165, 250, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline:hover {
+            background: rgba(96, 165, 250, 0.1);
+            border-color: #60a5fa;
+            transform: translateY(-2px);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            background: #1a1a2e;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .tab-button {
+            padding: 16px 32px;
+            background: transparent;
+            border: none;
+            color: #8b8b8b;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button.active {
+            color: #60a5fa;
+        }
+        
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        .input-group {
+            margin-bottom: 24px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            color: #b0b0b0;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #ffffff;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 24px;
+            color: #60a5fa;
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.3), transparent);
+        }
+        
+        .glow {
+            filter: drop-shadow(0 0 20px rgba(96, 165, 250, 0.3));
+        }
+        
+        .scroll-indicator {
+            width: 24px;
+            height: 40px;
+            border: 2px solid rgba(96, 165, 250, 0.5);
+            border-radius: 12px;
+            position: relative;
+            margin: 0 auto;
+        }
+        
+        .scroll-indicator::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 10px;
+            background: #60a5fa;
+            border-radius: 2px;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scroll 2s infinite;
+        }
+        
+        @keyframes scroll {
+            0% { opacity: 1; top: 8px; }
+            100% { opacity: 0; top: 24px; }
+        }
+        
+        .cyber-grid {
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
+</head>
+<body class="cyber-grid">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 py-4 px-6 bg-black/50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 glass-card rounded-xl flex items-center justify-center glow">
+                        <i class="fas fa-shield-alt text-blue-400 text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                            CyberGuard<span class="text-cyan-400">AI</span>
+                        </h1>
+                        <p class="text-xs text-gray-400">Advanced Threat Intelligence</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#workflow" class="nav-link">Workflow</a>
+                    <a href="#security" class="nav-link">Security</a>
+                    <button onclick="openAuthModal()" class="btn-gradient px-6 py-3">
+                        <i class="fas fa-lock mr-2"></i> Get Started
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button class="lg:hidden text-gray-300 text-2xl" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="lg:hidden fixed top-20 right-6 w-64 glass-card rounded-2xl p-6 hidden" id="mobileMenu">
+        <div class="flex flex-col space-y-4">
+            <a href="#home" class="nav-link py-2">Home</a>
+            <a href="#features" class="nav-link py-2">Features</a>
+            <a href="#workflow" class="nav-link py-2">Workflow</a>
+            <a href="#security" class="nav-link py-2">Security</a>
+            <button onclick="openAuthModal()" class="btn-gradient mt-4">
+                <i class="fas fa-lock mr-2"></i> Get Started
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen relative overflow-hidden pt-24 hero-bg">
+        <!-- Animated Background -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-screen filter blur-3xl opacity-10 animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-screen filter blur-3xl opacity-10 animate-pulse delay-1000"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row items-center min-h-[80vh]">
+                <!-- Left Content -->
+                <div class="lg:w-1/2 mb-12 lg:mb-0">
+                    <div class="inline-flex items-center space-x-2 mb-6">
+                        <span class="px-4 py-2 glass-card text-blue-400 text-sm font-medium rounded-full">
+                            <i class="fas fa-bolt mr-2"></i> AI-Powered Security
+                        </span>
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                        <span class="block text-gray-200">Advanced AI for</span>
+                        <span class="gradient-text">Cybersecurity</span>
+                        <span class="block gradient-text">Threat Detection</span>
+                    </h1>
+                    
+                    <p class="text-xl text-gray-400 mb-8 max-w-2xl">
+                        Protect your digital assets with cutting-edge machine learning. Our dual-model system combines Random Forest and Deep Reinforcement Learning to detect threats with 99.8% accuracy in real-time.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                        <button onclick="openAuthModal()" class="btn-gradient pulse-ring">
+                            <i class="fas fa-rocket mr-3"></i> Get Started Now
+                        </button>
+                        <button onclick="scrollToFeatures()" class="btn-outline">
+                            <i class="fas fa-play-circle mr-3"></i> Watch Demo
+                        </button>
+                    </div>
+                    
+                    <!-- Search Bar -->
+                    <div class="max-w-xl mb-12">
+                        <div class="relative">
+                            <input type="text" 
+                                   placeholder="Search threat patterns, vulnerabilities..." 
+                                   class="w-full px-6 py-4 glass-card text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                   style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);">
+                            <i class="fas fa-search absolute right-6 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="flex flex-wrap gap-8">
+                        <div>
+                            <div class="stats-number">99.8%</div>
+                            <div class="text-gray-400">Detection Accuracy</div>
+                        </div>
+                        <div>
+                            <div class="stats-number">&lt;50ms</div>
+                            <div class="text-gray-400">Response Time</div>
+                        </div>
+                        <div>
+                            <div class="stats-number">24/7</div>
+                            <div class="text-gray-400">Real-time Monitoring</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Image/Visual -->
+                <div class="lg:w-1/2 relative">
+                    <div class="relative floating">
+                        <!-- Main Dashboard Image -->
+                        <div class="glass-card overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                                 alt="Cybersecurity Dashboard" 
+                                 class="w-full h-96 object-cover rounded-t-2xl">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-3 text-white">Live Threat Dashboard</h3>
+                                <p class="text-gray-400">Real-time monitoring of network traffic and threat detection</p>
+                            </div>
+                        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div class="scroll-indicator"></div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-20 bg-gradient-to-b from-transparent to-black/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="glass-card p-8 text-center">
+                    <div class="text-4xl font-bold text-blue-400 mb-2">2M+</div>
+                    <div class="text-gray-400">Threats Detected</div>
+                    <div class="mt-4">
+                        <i class="fas fa-chart-line text-blue-400 text-2xl"></i>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 text-center">
+                    <div class="text-4xl font-bold text-purple-400 mb-2">&lt;50ms</div>
+                    <div class="text-gray-400">Response Time</div>
+                    <div class="mt-4">
+                        <i class="fas fa-bolt text-purple-400 text-2xl"></i>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 text-center">
+                    <div class="text-4xl font-bold text-cyan-400 mb-2">99.8%</div>
+                    <div class="text-gray-400">Accuracy Rate</div>
+                    <div class="mt-4">
+                        <i class="fas fa-percentage text-cyan-400 text-2xl"></i>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-8 text-center">
+                    <div class="text-4xl font-bold text-green-400 mb-2">24/7</div>
+                    <div class="text-gray-400">Real-time Monitoring</div>
+                    <div class="mt-4">
+                        <i class="fas fa-clock text-green-400 text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    <span class="gradient-text">Powerful Features</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Advanced threat detection powered by cutting-edge AI technologies
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 with Image -->
+                <div class="glass-card overflow-hidden group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="AI Brain" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Dual AI Architecture</h3>
+                        <p class="text-gray-400 mb-6">
+                            Combine Random Forest and Dueling DQN models for cross-verified threat detection with enhanced accuracy.
+                        </p>
+                        <a href="#" class="text-blue-400 font-medium hover:text-blue-300 transition">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Feature 2 with Image -->
+                <div class="glass-card overflow-hidden group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Analytics Dashboard" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Real-time Analytics</h3>
+                        <p class="text-gray-400 mb-6">
+                            Monitor security events with live dashboards, predictive analytics, and comprehensive threat intelligence.
+                        </p>
+                        <a href="#" class="text-blue-400 font-medium hover:text-blue-300 transition">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Feature 3 with Image -->
+                <div class="glass-card overflow-hidden group">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Data Processing" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="p-8">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Smart Data Processing</h3>
+                        <p class="text-gray-400 mb-6">
+                            Automated preprocessing, outlier detection, and feature engineering for clean, reliable datasets.
+                        </p>
+                        <a href="#" class="text-blue-400 font-medium hover:text-blue-300 transition">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="workflow" class="py-20">
+        <div class="section-divider my-20"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    <span class="gradient-text">How It Works</span>
+                </h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Four simple steps from data upload to threat intelligence
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div class="glass-card p-8 text-center">
+                        <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl font-bold text-blue-400">1</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             alt="Upload Data" 
+                             class="w-full h-40 object-cover rounded-xl mb-6">
+                        <h3 class="text-xl font-bold mb-4 text-white">Upload Dataset</h3>
+                        <p class="text-gray-400">
+                            Upload your CSV security logs or network traffic data
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative">
+                    <div class="glass-card p-8 text-center">
+                        <div class="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl font-bold text-purple-400">2</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             alt="Train Models" 
+                             class="w-full h-40 object-cover rounded-xl mb-6">
+                        <h3 class="text-xl font-bold mb-4 text-white">Train Models</h3>
+                        <p class="text-gray-400">
+                            Train Random Forest and DDDQN models simultaneously
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative">
+                    <div class="glass-card p-8 text-center">
+                        <div class="w-16 h-16 bg-cyan-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl font-bold text-cyan-400">3</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             alt="Run Predictions" 
+                             class="w-full h-40 object-cover rounded-xl mb-6">
+                        <h3 class="text-xl font-bold mb-4 text-white">Run Predictions</h3>
+                        <p class="text-gray-400">
+                            Detect threats with real-time predictions and confidence scores
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative">
+                    <div class="glass-card p-8 text-center">
+                        <div class="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                            <span class="text-2xl font-bold text-green-400">4</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" 
+                             alt="Analyze Results" 
+                             class="w-full h-40 object-cover rounded-xl mb-6">
+                        <h3 class="text-xl font-bold mb-4 text-white">Analyze Results</h3>
+                        <p class="text-gray-400">
+                            Visualize results, download reports, track security posture
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section id="security" class="py-20">
+        <div class="section-divider my-20"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        <span class="gradient-text">Enterprise Security</span>
+                    </h2>
+                    <p class="text-xl text-gray-400 mb-8">
+                        Built with enterprise-grade security features to protect your most sensitive data
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-lock text-green-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">JWT Authentication</h3>
+                                <p class="text-gray-400">Secure token-based authentication with 60-minute expiry</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-database text-blue-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Encrypted Storage</h3>
+                                <p class="text-gray-400">All data encrypted at rest and in transit</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-user-shield text-purple-400 text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-white mb-2">Role-Based Access</h3>
+                                <p class="text-gray-400">Granular permission control for team collaboration</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="glass-card p-8">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Security Lock" 
+                             class="w-full h-48 object-cover rounded-xl mb-8">
+                        <h3 class="text-2xl font-bold mb-4 text-white">Ready to Secure?</h3>
+                        <p class="text-gray-400 mb-6">Join thousands of security professionals</p>
+                        <div class="space-y-4">
+                            <button onclick="openAuthModal()" class="btn-gradient w-full">
+                                <i class="fas fa-user-plus mr-3"></i> Create Account
+                            </button>
+                            <button onclick="openAuthModal('login')" class="btn-outline w-full">
+                                <i class="fas fa-sign-in-alt mr-3"></i> Login to Dashboard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 glass-card rounded-xl flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-blue-400 text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">CyberGuard<span class="text-cyan-400">AI</span></h3>
+                            <p class="text-sm text-gray-400">Advanced Threat Intelligence</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        © 2023 CyberGuard AI. All rights reserved.
+                    </p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-content">
+            <!-- Close Button -->
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl z-50">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Tabs -->
+            <div class="flex border-b border-gray-800">
+                <button class="tab-button active w-1/2" data-tab="login">
+                    <i class="fas fa-sign-in-alt mr-2"></i> Login
+                </button>
+                <button class="tab-button w-1/2" data-tab="signup">
+                    <i class="fas fa-user-plus mr-2"></i> Sign Up
+                </button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="p-8">
+                <h2 class="text-3xl font-bold mb-6 text-white">Welcome Back</h2>
+                <form id="loginFormContent">
+                    <div class="input-group">
+                        <input type="email" placeholder="Email Address" class="input-group input" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" placeholder="Password" class="input-group input" required>
+                    </div>
+                    <div class="flex items-center justify-between mb-6">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="text-gray-400">Remember me</span>
+                        </label>
+                        <a href="#" class="text-blue-400 hover:text-blue-300 text-sm">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn-gradient w-full">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Login to Dashboard
+                    </button>
+                </form>
+                <div class="mt-6 text-center">
+                    <p class="text-gray-400">
+                        Don't have an account? 
+                        <button onclick="switchTab('signup')" class="text-blue-400 font-semibold hover:text-blue-300 ml-1">
+                            Sign up here
+                        </button>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="p-8 hidden">
+                <h2 class="text-3xl font-bold mb-6 text-white">Create Account</h2>
+                <form id="signupFormContent">
+                    <div class="input-group">
+                        <input type="text" placeholder="Full Name" class="input-group input" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" placeholder="Email Address" class="input-group input" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="input-group">
+                            <input type="password" placeholder="Password" class="input-group input" required>
+                        </div>
+                        <div class="input-group">
+                            <input type="password" placeholder="Confirm Password" class="input-group input" required>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label class="flex items-start">
+                            <input type="checkbox" class="mr-2 mt-1" required>
+                            <span class="text-gray-400 text-sm">
+                                I agree to the <a href="#" class="text-blue-400">Terms</a> and 
+                                <a href="#" class="text-blue-400">Privacy Policy</a>
+                            </span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-gradient w-full">
+                        <i class="fas fa-user-plus mr-2"></i> Create Account
+                    </button>
+                </form>
+                <div class="mt-6 text-center">
+                    <p class="text-gray-400">
+                        Already have an account? 
+                        <button onclick="switchTab('login')" class="text-blue-400 font-semibold hover:text-blue-300 ml-1">
+                            Login here
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+/* ================= API CONFIG ================= */
+const API_BASE_URL = "http://127.0.0.1:8000"; // change when deployed
+
+function setToken(token) {
+    localStorage.setItem("access_token", token);
+}
+
+function getToken() {
+    return localStorage.getItem("access_token");
+}
+
+/* ================= MOBILE MENU ================= */
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+mobileMenuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mobileMenu.classList.toggle('hidden');
+});
+
+document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+        mobileMenu.classList.add('hidden');
+    }
+});
+
+/* ================= AUTH MODAL ================= */
+const authModal = document.getElementById('authModal');
+
+function openAuthModal(tab = 'login') {
+    authModal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    switchTab(tab);
+}
+
+function closeAuthModal() {
+    authModal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function switchTab(tabName) {
+    document.querySelectorAll('.tab-button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.tab === tabName);
+    });
+
+    document.getElementById('loginForm').classList.toggle('hidden', tabName !== 'login');
+    document.getElementById('signupForm').classList.toggle('hidden', tabName !== 'signup');
+}
+
+authModal.addEventListener('click', (e) => {
+    if (e.target === authModal || e.target.closest('.fa-times')) {
+        closeAuthModal();
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && authModal.style.display === 'flex') {
+        closeAuthModal();
+    }
+});
+
+/* ================= LOGIN ================= */
+document.getElementById('loginFormContent').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const email = e.target.querySelector('input[type="email"]').value;
+    const password = e.target.querySelector('input[type="password"]').value;
+
+    if (!email || !password) {
+        alert("Please fill in all fields");
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.detail || "Login failed");
+            return;
+        }
+
+        // Save token
+        setToken(data.access_token);
+        
+        // Close modal
+        closeAuthModal();
+        
+        // Redirect to dashboard
+        window.location.href = "dashboard.html";
+
+    } catch (err) {
+        alert("Server error: " + err.message);
+        console.error(err);
+    }
+});
+
+/* ================= SIGNUP ================= */
+document.getElementById('signupFormContent').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const inputs = e.target.querySelectorAll('input');
+    const username = inputs[0].value;
+    const email = inputs[1].value;
+    const password = inputs[2].value;
+    const confirmPassword = inputs[3].value;
+
+    // Validation
+    if (!username || !email || !password || !confirmPassword) {
+        alert("Please fill in all fields");
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    if (password.length < 6) {
+        alert("Password must be at least 6 characters long");
+        return;
+    }
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/signup`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.detail || "Signup failed");
+            return;
+        }
+
+        // Save token
+        setToken(data.access_token);
+        
+        // Close modal
+        closeAuthModal();
+        
+        // Redirect to dashboard
+        window.location.href = "dashboard.html";
+
+    } catch (err) {
+        alert("Server error: " + err.message);
+        console.error(err);
+    }
+});
+
+/* ================= TAB BUTTONS ================= */
+document.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', () => switchTab(button.dataset.tab));
+});
+
+/* ================= SMOOTH SCROLL ================= */
+function scrollToFeatures() {
+    const features = document.getElementById('features');
+    if (features) {
+        features.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (!targetId || targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (!targetElement) return;
+        
+        e.preventDefault();
+        window.scrollTo({
+            top: targetElement.offsetTop - 100,
+            behavior: 'smooth'
+        });
+        
+        mobileMenu.classList.add('hidden');
+    });
+});
+
+/* ================= ANIMATIONS ================= */
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.glass-card').forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(el);
+});
+</script>
+
+
+
+       
+</body>
+</html>

@@ -1,0 +1,37 @@
+# Core FastAPI and Web Framework
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic
+starlette
+
+# Authentication & Security (NEW)
+python-jose[cryptography]
+passlib[bcrypt]
+
+# Data Science & ML
+pandas
+numpy
+scikit-learn
+tensorflow
+keras
+openpyxl
+
+# Deep Learning
+torch
+torchvision
+
+# Reinforcement Learning
+gym
+gymnasium
+
+# Visualization
+matplotlib
+seaborn
+plotly
+
+# Utilities
+joblib
+requests
+cloudpickle
+tqdm
