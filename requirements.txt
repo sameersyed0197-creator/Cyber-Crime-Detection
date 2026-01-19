@@ -8,6 +8,7 @@ starlette
 # Authentication & Security (NEW)
 python-jose[cryptography]
 passlib[bcrypt]
+email-validator
 
 # Data Science & ML
 pandas
