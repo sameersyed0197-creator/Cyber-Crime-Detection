@@ -1,4 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException, Depends
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import pandas as pd
 import numpy as np
 from io import StringIO
@@ -74,11 +76,19 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://sameersyed0197-creator.github.io",
+        "http://localhost:3000",
+        "http://localhost:8080",
+        "*"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve static files (frontend)
+app.mount("/static", StaticFiles(directory="."), name="static")
 
 # Initialize database on startup
 @app.on_event("startup")
@@ -91,7 +101,12 @@ async def startup_event():
 
 @app.get("/")
 def root():
-    """Public endpoint - test server status"""
+    """Serve the frontend"""
+    return FileResponse('simple_frontend.html')
+
+@app.get("/api")
+def api_status():
+    """API endpoint - test server status"""
     return {"message": "Smart City Cybersecurity API is running 🚀"}
 
 @app.post("/signup", response_model=Token, tags=["authentication"])
