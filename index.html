@@ -993,32 +993,6 @@ function updateUIForLoggedInUser() {
         statusDiv.remove();
     }, 3000);
 }
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, email, password })
-        });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-            alert(data.detail || "Signup failed");
-            return;
-        }
-
-        // Save token
-        setToken(data.access_token);
-        
-        // Close modal
-        closeAuthModal();
-        
-        // Redirect to dashboard
-        window.location.href = "dashboard.html";
-
-    } catch (err) {
-        alert("Server error: " + err.message);
-        console.error(err);
-    }
-});
 
 /* ================= TAB BUTTONS ================= */
 document.querySelectorAll('.tab-button').forEach(button => {
